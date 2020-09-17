@@ -1,9 +1,13 @@
+function visitApp(){
+    cy.visit('/')
+    cy.contains('Forms').click()
+    cy.contains('Form Layouts').click()
+}
+
 describe('First Suite', () => {
     
   it('First test', () => {
-      cy.visit('/')
-      cy.contains('Forms').click()
-      cy.contains('Form Layouts').click()
+      visitApp()
       //by tag name
       cy.get('input')
       //by ID
@@ -24,6 +28,24 @@ describe('First Suite', () => {
       cy.get('input[placeholder="Email"]#inputEmail.input-full-width.size-medium')
       // most recommended
       cy.get('[data-cy="imputEmail1"]')
+  });
+
+  it('Second test', () => {
+    visitApp()
+    cy.get('[data-cy="signInButton"]')
+    cy.contains('Sign in')
+    cy.contains('[status="warning"]','Sign in')
+ 
+    cy.get("#inputEmail3")
+        .parents('form')
+        .find('button')
+        .should('contain','Sign in')
+        .parents('form')
+        .find('nb-checkbox')
+        .click()
+
+        cy.contains('nb-card','Horizontal form').find('[type="email"]')
+
   });
 
 });
