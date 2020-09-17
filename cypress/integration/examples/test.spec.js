@@ -48,7 +48,7 @@ describe('First Suite', () => {
 
   });
 
-  it.only('ten and wrap methods', () => {
+  it('ten and wrap methods', () => {
       visitApp()
 
     //   cy.contains('nb-card', 'Using the Grid').find('[for="inputEmail1"]').should('contain','Email')
@@ -85,6 +85,39 @@ describe('First Suite', () => {
       })
   });
 
+  it('invoke command', () => {
+      visitApp()
+
+      //1
+      cy.get('[for="exampleInputPassword1"]').should('contain','Password')
+
+      // 2
+      cy.get('[for="exampleInputPassword1"]').then( label => {
+          expect(label.text()).to.equal("Password")
+      })
+
+      //3
+      cy.get('[for="exampleInputPassword1"]').invoke('text').then( text => {
+        expect(text).to.equal("Password")
+    })
+
+    cy.contains('nb-card','Basic form')
+        .find('nb-checkbox')
+        .click()
+        .find('.custom-checkbox')
+        .invoke('attr','class')
+        .should('contain','checked')
+  });
+
+  it.only('assert proporty', () => {
+      cy.visit('/')
+      cy.contains('Forms').click()
+      cy.contains('Datepicker').click()
+
+      cy.contains('nb-card', 'Common Datepicker').find('input').click()
+      cy.contains('nb-calendar-day-cell', '23').click()
+      cy.contains('nb-card', 'Common Datepicker').find('input').invoke('prop','value').should('contain','Sep 23, 2020')
+  });
 });
 
 
