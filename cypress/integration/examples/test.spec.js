@@ -142,8 +142,15 @@ describe('First Suite', () => {
       })
   });
 
-  it('', () => {
-    
+  it.only('checkboxes', () => {
+      cy.visit('/')
+      cy.contains('Modal & Overlays').click()
+      cy.contains("Toastr").click()
+
+      cy.get('[type="checkbox"]').check({force : true })
+      cy.get('[type="checkbox"]').eq(0).click({force : true }).should('not.be.checked')
+      cy.get('[type="checkbox"]').eq(1).should('be.checked')
+      cy.get('[type="checkbox"]').eq(2).uncheck({force:true})
   });
 });
 
