@@ -109,7 +109,7 @@ describe('First Suite', () => {
         .should('contain','checked')
   });
 
-  it.only('assert proporty', () => {
+  it('assert proporty', () => {
       cy.visit('/')
       cy.contains('Forms').click()
       cy.contains('Datepicker').click()
@@ -117,6 +117,33 @@ describe('First Suite', () => {
       cy.contains('nb-card', 'Common Datepicker').find('input').click()
       cy.contains('nb-calendar-day-cell', '23').click()
       cy.contains('nb-card', 'Common Datepicker').find('input').invoke('prop','value').should('contain','Sep 23, 2020')
+  });
+
+  it('Radio button', () => {
+      visitApp()
+      cy.contains('nb-card','Using the Grid').find('[type="radio"').then( radioButtons => {
+        cy.wrap(radioButtons)
+         .first()
+         .click({force : true })
+         .should('be.checked')
+
+         cy.wrap(radioButtons)
+          .eq(1)
+          .check({force: true})
+
+          cy.wrap(radioButtons)
+          .eq(0)
+          .should('not.be.checked')
+
+          cy.wrap(radioButtons)
+          .eq(2)
+          .should('be.disabled')
+
+      })
+  });
+
+  it('', () => {
+    
   });
 });
 
