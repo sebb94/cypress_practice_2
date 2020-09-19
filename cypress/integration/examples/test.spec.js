@@ -112,7 +112,7 @@ describe('First Suite', () => {
   });
 
   it.only('assert proporty', () => {
-      cy.visit('/')
+      cy.openHomePage()
       navigateTo.datepickerPage()
 
       cy.contains('nb-card', 'Common Datepicker').find('input').click()
