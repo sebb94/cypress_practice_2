@@ -1,3 +1,5 @@
+
+import { navigateTo } from "../../support/page_objects/navigation"
 function visitApp(){
     cy.visit('/')
     cy.contains('Forms').click()
@@ -109,10 +111,9 @@ describe('First Suite', () => {
         .should('contain','checked')
   });
 
-  it('assert proporty', () => {
+  it.only('assert proporty', () => {
       cy.visit('/')
-      cy.contains('Forms').click()
-      cy.contains('Datepicker').click()
+      navigateTo.datepickerPage()
 
       cy.contains('nb-card', 'Common Datepicker').find('input').click()
       cy.contains('nb-calendar-day-cell', '23').click()
@@ -143,9 +144,8 @@ describe('First Suite', () => {
   });
 
   it('checkboxes', () => {
-      cy.visit('/')
-      cy.contains('Modal & Overlays').click()
-      cy.contains("Toastr").click()
+
+      navigateTo.toasterPage()
 
       cy.get('[type="checkbox"]').check({force : true })
       cy.get('[type="checkbox"]').eq(0).click({force : true }).should('not.be.checked')
@@ -154,7 +154,7 @@ describe('First Suite', () => {
       cy.get("#submit").should('be.visible')
   });
 
-  it.only('list and dropdowns', () => {
+  it('list and dropdowns', () => {
       cy.visit('/')
 
       //1
